@@ -13,7 +13,7 @@ os.system("tput clear")
 print "\ncopy link from browser it may or may not contain /name.html extensions\n"
 base_url=raw_input("Enter page url= ")
 #-------------------------------------------------------------------------------
-
+cnt=0
 test = urllib2.urlopen(base_url).read()
 test2=test
 os.system("touch web.html")
@@ -36,14 +36,15 @@ if choice==1:
 		test = test[curpos+1:testlen]
 		curpos = test.find('"')
 		needle = test[0:curpos]
-		if needle.startswith("http" or "www" or "/"):
+		if needle.startswith("http" or "www" or "/"):#and needle.endswith(".js"):
 			needlestack.append(needle)
 		elif needle.startswith(""):
 			needlestack.append(url+"/"+needle)
 	  else:
 		sane = 1
 		for item in needlestack:
-			dwnld=item
+			dwnld=str(cnt+1)+") "+item
+			cnt+=1
 			print dwnld
 #--------------------------------------------------------------------------------
 elif choice==2:
@@ -59,23 +60,40 @@ elif choice==2:
 		test = test[curpos+1:testlen]
 		curpos = test.find('"')
 		needle = test[0:curpos]
-		if needle.startswith("http" or "www" or "/"):
+		if needle.startswith("http" or "www" or "/"):#and needle.endswith(".js"):
 			needlestack.append(needle)
 		elif needle.startswith(""):
 			needlestack.append(url+"/"+needle)
 	  else:
 		sane = 1
 		for item in needlestack:
-			dwnld=item
+			dwnld=str(cnt+1)+") "+item
+			cnt+=1
 			print dwnld
 #--------------------------------------------------------------------------------
-ch=raw_input("\nDo you Want to Download(Y/N)")
+print "\nDo you Want to Download (",cnt,"files) (Y/N)"
+ch=raw_input()
 if ch=='y' or ch=='Y':	
-	os.system("rm -rf swap")
-	os.system("mkdir swap")
+	os.system("rm -rf Script_data")
+	os.system("mkdir Script_data")
 	for item in needlestack:
 		
-		dwnld="cd swap && "+"wget "+item
+		dwnld="cd Script_data && "+"wget "+item
 	#	print dwnld
 		os.system(dwnld)
 	#  print item
+#------------------------------------------------------------------------------------
+if ch=='n' or ch=='N':
+	print "would you like to download selected items?(Y/n)"
+	ch2=raw_input()
+	if ch2=='y' or ch2=='y':
+		while(True):
+			filetodownload=int(input("Enter your choice number"))
+			if filetodownload!=0:
+				os.system("rm -rf Script_data")
+				os.system("mkdir Script_data")
+				dwnld="cd Script_data && "+"wget "+needlestack[filetodownload-1]
+				os.system(dwnld)
+			else:
+				break
+			
