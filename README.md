@@ -1,5 +1,11 @@
 # website_Extractor
 Extracts all resources and links from website
+<pre><code>wget https://github.com/saurabhlondhe/website_Extractor/blob/master/webExtractor.py
+chmod +x webExtractor.py
+./webExtractor.py
+</code></pre>
+
+
 
 # Enter url starting with 'http://'
 <img src="https://raw.githubusercontent.com/saurabhlondhe/website_Extractor/master/Screenshots/python%20%3A%20sh%20—%20Konsole_019.png" />
